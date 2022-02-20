@@ -1,0 +1,52 @@
+{
+  "name": "iris-electron",
+  "version": "2.1.1",
+  "main": "index.js",
+  "repository": "https://github.com/irislib/iris-electron",
+  "author": "Martti Malmi <sirius@iki.fi>",
+  "license": "MIT",
+  "description": "Social networking freedom",
+  "dependencies": {
+    "bonjour": "mmalmi/bonjour",
+    "electron-updater": "^4.3.9",
+    "gun": "^0.2020.1232",
+    "nat-pmp": "^1.0.0",
+    "public-ip": "^4.0.4"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "electron": "^13.1.9",
+    "electron-builder": "^22.14.13",
+    "electron-notarize": "^1.1.0"
+  },
+  "build": {
+    "productName": "Iris",
+    "appId": "to.iris.electron",
+    "afterSign": "scripts/notarize.js",
+    "files": "!.env",
+    "mac": {
+      "category": "public.app-category.social-networking"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "publish": {
+      "provider": "github"
+    }
+  },
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "start": "DEV=true electron .",
+    "pack": "electron-builder --dir",
+    "build": "electron-builder",
+    "release": "electron-builder"
+  }
+}
